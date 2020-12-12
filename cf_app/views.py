@@ -211,49 +211,49 @@ def test_es_get_all_api(request):
 
 @api_view(['GET'])
 def test_get_productIdList_api1(request):
-    response = [3897,3921,3940,3963,3989,4002,4019,4037
+    response = [3897,3921,3940,3963,3989,4002,4019,4037,
 4056,4083,4108,4129,4152,4178,4202,4222]
     return Response({"productIdList": response}, status=status.HTTP_200_OK)
 
 
 @api_view(['GET'])
 def test_get_productIdList_api2(request):
-    response = [3897,3921,3940,3963,3989,4002,4019,4037
+    response = [3897,3921,3940,3963,3989,4002,4019,4037,
 4056,4083,4108,4129,4152,4178,4202,4222]
     return Response({"productIdList": response}, status=status.HTTP_200_OK)
 
 
 @api_view(['GET'])
 def test_get_productIdList_api3(request):
-    response = [3897,3921,3940,3963,3989,4002,4019,4037
+    response = [3897,3921,3940,3963,3989,4002,4019,4037,
 4056,4083,4108,4129,4152,4178,4202,4222]
     return Response({"productIdList": response}, status=status.HTTP_200_OK)
 
 
 @api_view(['GET'])
 def test_get_productIdList_api4(request):
-    response = [3897,3921,3940,3963,3989,4002,4019,4037
+    response = [3897,3921,3940,3963,3989,4002,4019,4037,
 4056,4083,4108,4129,4152,4178,4202,4222]
     return Response({"productIdList": response}, status=status.HTTP_200_OK)
 
 
 @api_view(['GET'])
 def test_get_productIdList_api5(request):
-    response = [3897,3921,3940,3963,3989,4002,4019,4037
+    response = [3897,3921,3940,3963,3989,4002,4019,4037,
 4056,4083,4108,4129,4152,4178,4202,4222]
     return Response({"productIdList": response}, status=status.HTTP_200_OK)
 
 
 @api_view(['GET'])
 def test_get_productIdList_api6(request):
-    response = [3897,3921,3940,3963,3989,4002,4019,4037
+    response = [3897,3921,3940,3963,3989,4002,4019,4037,
 4056,4083,4108,4129,4152,4178,4202,4222]
     return Response({"productIdList": response}, status=status.HTTP_200_OK)
 
 
 @api_view(['GET'])
 def test_write_pkl_api(request):
-    productIdList = [3897,3921,3940,3963,3989,4002,4019,4037
+    productIdList = [3897,3921,3940,3963,3989,4002,4019,4037,
 4056,4083,4108,4129,4152,4178,4202,4222]
     with open('list.pkl', 'wb') as f:
         pickle.dump(productIdList, f)
