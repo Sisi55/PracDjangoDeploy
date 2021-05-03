@@ -5,21 +5,24 @@ import asyncio
 import random
 import csv
 from selenium import webdriver
+import os
 
+import django
 
-# urls = ['https://www.google.co.kr/search?q=' + i
-#         for i in ['apple', 'pear', 'grape', 'pineapple', 'orange', 'strawberry']]
+from cf_app.models import Product
+
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", 'config.settings')
+django.setup()
+
 
 def get_product_id_list():
-    csvfile = open('product_id_list.txt', 'r')
+    result = []
+    id_list = Product.objects.all().values('product_id')
+    for row in id_list:
+        result.append(row['product_id'])
+    print(result)
 
-    fieldnames = ("product_id",)
-    reader = csv.DictReader(csvfile, fieldnames)
-
-    product_id_list = []
-    for row in reader:
-        product_id_list.append(row['product_id'])
-    return product_id_list
+    return result
 
 
 product_id_list = get_product_id_list()
@@ -28,13 +31,12 @@ action_select_list = [0, 1]  # 0:장바구니 , 1:즉시주문
 
 
 async def fetch():
-    # request = Request(url, headers={'User-Agent': 'Mozilla/5.0'})  # UA가 없으면 403 에러 발생
     browser = webdriver.Chrome(executable_path='D:/000UbicFinal/chromedriver')
 
     while True:
         product_detail_id = random.choice(product_id_list)
         print(product_detail_id, browser, time())
-        url_product_detail = 'http://localhost:8080/products/' + product_detail_id
+        url_product_detail = 'http://localhost:8080/products/' + str(product_detail_id)
         browser.get(url_product_detail)  # 상품 상세 화면 이동
 
         # 장바구니 또는 바로구매
@@ -49,13 +51,9 @@ async def fetch():
 
         await asyncio.sleep(3.0)  # 실전은 3초 대기. asyncio.sleep도 네이티브 코루틴
 
-    # response = await loop.run_in_executor(None, urlopen, request)  # run_in_executor 사용
-    # page = await loop.run_in_executor(None, response.read)  # run in executor 사용
-    # return len(page)
-
 
 async def main():
-    futures = [asyncio.ensure_future(fetch()) for test in range(20)]  # 10개 원소 리스트
+    futures = [asyncio.ensure_future(fetch()) for test in range(5)]  # 10개 원소 리스트
     # 태스크(퓨처) 객체를 리스트로 만듦
     result = await asyncio.gather(*futures)  # 결과를 한꺼번에 가져옴 : 리스트 반환
     print(result)
